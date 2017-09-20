@@ -70,7 +70,7 @@ if "%srchPath%" == "" (
     ::::start with absolute path exe mode.
     if exist "%progFull%" (
         echo/start "" /D "%progPath%" /B "%progFull%" %progParams%
-        start "" /D "%progPath%" /B "%progFull%" %progParams% && ( call eo_in_common /Q /E 0 & exit/b )
+        start "" /D "%progPath%" /B "%progFull%" %progParams% && ( call :eo_in_common /Q /E 0 & exit/b )
     ) else (
         :: error - missing key param
         call :help_end ":help_launcher" ":eo_in_common" /Q /E 1 & exit/b
@@ -79,7 +79,7 @@ if "%srchPath%" == "" (
     if exist "%srchPath%\%progExec%" (
         :: first detect the top level in %srchPath%
         echo/start "" /D "%srchPath%" /B "%progExec%" %progParams%
-        start "" /D "%srchPath%" /B "%progExec%" %progParams% && ( call eo_in_common /Q /E 0 & exit/b )
+        start "" /D "%srchPath%" /B "%progExec%" %progParams% && ( call :eo_in_common /Q /E 0 & exit/b )
     ) else if %modes% equ 1 (
         :: search recursively in %srchpath%
         for /f "tokens=* delims=" %%a in ('dir/b/s/a-d "%srchPath%\%progExec%"') do (
@@ -90,12 +90,12 @@ if "%srchPath%" == "" (
             )
 
             echo/start "" /D "!progPath!" /B "%progFull%" %progParams%
-            start "" /D "!progPath!" /B "%progFull%" %progParams% && ( call eo_in_common /Q /E 0 & exit/b )
+            start "" /D "!progPath!" /B "%progFull%" %progParams% && ( call :eo_in_common /Q /E 0 & exit/b )
         )
     )
 )
 
-call eo_in_common /Q /E 1 & exit/b
+call :eo_in_common /Q /E 1 & exit/b
 exit/b
 :: -----------------------------------------------------------------------------
 :help_launcher  -- Display help informations
